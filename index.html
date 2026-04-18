@@ -1271,14 +1271,146 @@
   }
   .leaflet-tooltip::before { display: none; }
 
-  @media (max-width: 900px) {
-    body { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
-    aside { max-height: 50vh; border-right: none; border-bottom: 2px solid var(--line); }
-    main { min-height: 50vh; }
+  /* ---- MOBILE WARNING ---- */
+  .mobile-warning {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 99999;
+    padding: 40px 28px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+  .mobile-warning::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' fill='none' stroke='%231a1a1a' stroke-width='0.7' opacity='0.08'%3E%3Cpath d='M0 200 Q200 80 400 180 T800 140'/%3E%3Cpath d='M0 240 Q200 120 400 220 T800 180'/%3E%3Cpath d='M0 280 Q200 160 400 260 T800 220'/%3E%3Cpath d='M0 340 Q200 220 400 320 T800 280'/%3E%3Cpath d='M0 400 Q200 280 400 380 T800 340'/%3E%3Cpath d='M0 460 Q200 340 400 440 T800 400'/%3E%3Cpath d='M0 520 Q200 400 400 500 T800 460'/%3E%3C/svg%3E");
+    background-size: cover;
+    background-position: center;
+    pointer-events: none;
+  }
+  .mw-inner {
+    position: relative;
+    max-width: 380px;
+  }
+  .mw-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .mw-brand svg { width: 28px; height: 28px; }
+  .mw-brand-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .mw-brand-name span { color: var(--accent); }
+  .mw-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .mw-eyebrow::before, .mw-eyebrow::after {
+    content: '';
+    width: 22px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .mw-title {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 38px;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .mw-title strong {
+    font-style: normal;
+    font-weight: 800;
+    color: var(--accent);
+    position: relative;
+  }
+  .mw-title strong::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 3px;
+    height: 6px;
+    background: var(--accent-soft);
+    z-index: -1;
+  }
+  .mw-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .mw-hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink);
+    background: var(--card);
+    border: 1.5px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--accent);
+    padding: 14px 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .mw-hint-icon {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  @media (max-width: 760px) {
+    body { overflow: hidden; }
+    .mobile-warning { display: flex; }
   }
 </style>
 </head>
 <body>
+
+<div class="mobile-warning">
+  <div class="mw-inner">
+    <div class="mw-brand">
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 23 Q11 9 16 17 T27 11" stroke="#1a1a1a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <circle cx="5" cy="23" r="2.8" fill="#1a1a1a"/>
+        <circle cx="27" cy="11" r="2.8" fill="#d94f1e"/>
+      </svg>
+      <span class="mw-brand-name">Weg<span>wijs</span></span>
+    </div>
+    <div class="mw-eyebrow">Even geduld</div>
+    <h1 class="mw-title">Liever op het <strong>grote</strong> scherm.</h1>
+    <p class="mw-body">Wegwijs werkt met kaarten, lange lijsten en gedetailleerde popups — die hebben ruimte nodig. Op een telefoon is dat helaas niet prettig te gebruiken.</p>
+    <div class="mw-hint">
+      <span class="mw-hint-icon">→</span>
+      <span>Open deze pagina op je laptop of desktop.</span>
+    </div>
+  </div>
+</div>
 
 <aside>
   <header>
@@ -1447,7 +1579,6 @@
     <div class="legend-divider"></div>
     <div class="legend-fame">
       <div class="legend-fame-dots">
-        <span class="fame-dot dot-xs"></span>
         <span class="fame-dot dot-sm"></span>
         <span class="fame-dot dot-md"></span>
         <span class="fame-dot dot-lg"></span>
@@ -2107,49 +2238,89 @@ const WD_HERITAGE_QUERY_TYPES = [
 ];
 
 const WD_NATURE_TYPES = [
-  'Q34038',   // waterfall
-  'Q35509',   // cave
-  'Q124714',  // spring
-  'Q207326',  // mountain peak
-  'Q8502',    // mountain
-  'Q54050',   // hill
-  'Q23397',   // lake
-  'Q184358',  // volcano
-  'Q150784',  // nature reserve
-  'Q473972',  // protected area
-  'Q46169',   // natural monument
-  'Q333167',  // canyon
-  'Q1437459', // national park
-  'Q3215290', // scenic viewpoint
-  'Q11914211',// viewpoint
-  'Q40080',   // beach
-  'Q25550691',// gorge
-  'Q271669',  // landform
-  'Q4022',    // river (filter heavy — may spam; keep watchful)
+  // Water features
+  'Q34038',    // waterfall
+  'Q124714',   // spring
+  'Q177380',   // hot spring
+  'Q23397',    // lake
+  'Q5505949',  // glacial lake
+  'Q4022',     // river
+  'Q47521',    // crater lake
+  // Caves & karst
+  'Q35509',    // cave
+  'Q1052319',  // karst
+  'Q740326',   // sinkhole
+  // Mountains
+  'Q207326',   // mountain peak
+  'Q8502',     // mountain
+  'Q54050',    // hill
+  'Q46831',    // mountain range
+  'Q35666',    // plateau
+  'Q133056',   // mountain pass / col
+  'Q12480',    // saddle
+  // Glaciers & cold features
+  'Q35666',    // glacier (some sources)
+  'Q22746',    // glacier
+  // Volcanic
+  'Q184358',   // volcano
+  'Q3240715',  // crater
+  // Coastal & desert
+  'Q40080',    // beach
+  'Q107425',   // landscape
+  'Q42473',    // promontory / cape
+  'Q107425',   // landscape feature
+  'Q1207596',  // dune
+  'Q63134381', // sand dune
+  // Cliffs, gorges, valleys
+  'Q333167',   // canyon
+  'Q25550691', // gorge
+  'Q39594',    // cliff
+  'Q1437459',  // national park
+  'Q39816',    // valley
+  // Forests & wetlands
+  'Q4421',     // forest (note: also triumphal arch elsewhere; may overlap)
+  'Q170321',   // wetland
+  'Q3215290',  // scenic viewpoint
+  'Q11914211', // viewpoint
+  'Q150784',   // nature reserve
+  'Q473972',   // protected area
+  'Q46169',    // natural monument
+  'Q1138378',  // geopark
+  'Q271669',   // landform
 ];
 
 const WD_ENDPOINT = 'https://query.wikidata.org/sparql';
 
-// THIRD strategy: subclass-walk query.
-// We look for items that are an instance of ANY subclass of these "root" types.
-// This catches things tagged with very specific types we didn't explicitly list,
-// like "Maginot Line ouvrage" → subclass of fortification → caught.
-// Slower than the explicit type list but much more thorough.
+// Subclass-walk roots. We walk the subclass tree from these roots so we catch
+// ALL subtypes (e.g. "tiered waterfall" → subclass of waterfall → caught).
 const WD_HIST_ROOTS = [
   'Q57821',    // fortification (catches all forts, citadels, bastions, Maginot, etc.)
   'Q839954',   // archaeological site (catches Roman, Gallo-Roman, megalithic, etc.)
   'Q23413',    // castle (catches all castle subtypes)
   'Q4989906',  // monument
   'Q1081138',  // historic site
+  'Q820477',   // mine (catches historic salt/silver/coal mines)
+  'Q1107656',  // garden (historic gardens)
+  'Q2319498',  // lighthouse
 ];
 
-async function fetchWikidataSubclasses(bbox, token) {
+const WD_NATURE_ROOTS = [
+  'Q34038',    // waterfall (catches cataracts, cascades, all waterfall subtypes)
+  'Q35509',    // cave (catches sea caves, ice caves, lava tubes, etc.)
+  'Q8502',     // mountain (catches all peaks, summits, mountain subtypes)
+  'Q23397',    // lake (catches all lake subtypes)
+  'Q133056',   // mountain pass (catches col, alpine pass, etc.)
+  'Q22746',    // glacier
+  'Q1437459',  // national park
+];
+
+async function fetchWikidataSubclasses(bbox, token, roots, label) {
   const swLon = bbox[1];
   const swLat = bbox[0];
   const neLon = bbox[3];
   const neLat = bbox[2];
 
-  const rootsList = WD_HIST_ROOTS.map(t => `wd:${t}`).join(' ');
+  const rootsList = roots.map(t => `wd:${t}`).join(' ');
 
   // Walk subclass tree from each root, then find instances in bbox.
   // The subclass-walk is the slow part, but limited to 5 roots it stays fast.
@@ -2159,6 +2330,7 @@ SELECT ?item ?itemLabel ?coord ?type ?typeLabel ?sitelinks ?nlArticle ?enArticle
   ?type wdt:P279* ?root .
   ?item wdt:P31 ?type ;
         wikibase:sitelinks ?sitelinks .
+  FILTER(?sitelinks > 2)
   SERVICE wikibase:box {
     ?item wdt:P625 ?coord .
     bd:serviceParam wikibase:cornerSouthWest "Point(${swLon} ${swLat})"^^geo:wktLiteral .
@@ -2177,7 +2349,7 @@ SELECT ?item ?itemLabel ?coord ?type ?typeLabel ?sitelinks ?nlArticle ?enArticle
 LIMIT 800
 `.trim();
 
-  return await runSPARQL(query, 'subclass');
+  return await runSPARQL(query, label);
 }
 
 async function fetchWikidataBBox(bbox, token, categoryList, categoryName) {
@@ -2193,6 +2365,7 @@ SELECT ?item ?itemLabel ?coord ?type ?typeLabel ?sitelinks ?nlArticle ?enArticle
   VALUES ?type { ${typesList} }
   ?item wdt:P31 ?type ;
         wikibase:sitelinks ?sitelinks .
+  FILTER(?sitelinks > 2)
   SERVICE wikibase:box {
     ?item wdt:P625 ?coord .
     bd:serviceParam wikibase:cornerSouthWest "Point(${swLon} ${swLat})"^^geo:wktLiteral .
@@ -2226,6 +2399,7 @@ async function fetchWikidataHeritage(bbox, token, categoryName) {
 SELECT ?item ?itemLabel ?coord ?type ?typeLabel ?sitelinks ?nlArticle ?enArticle ?frArticle ?deArticle WHERE {
   ?item wdt:P1435 ?heritage ;
         wikibase:sitelinks ?sitelinks .
+  FILTER(?sitelinks > 2)
   SERVICE wikibase:box {
     ?item wdt:P625 ?coord .
     bd:serviceParam wikibase:cornerSouthWest "Point(${swLon} ${swLat})"^^geo:wktLiteral .
@@ -2340,7 +2514,8 @@ async function fetchPOIs(track, token) {
 
   // Plus heritage-designation + subclass-walk queries per segment (each
   // catches different "missing" landmarks). Total: 5 queries per segment.
-  const totalQueries = segments.length * (categories.length + 2);
+  // 2 categorical (hist+nature) + 1 heritage + 2 subclass walks = 5 queries per segment
+  const totalQueries = segments.length * (categories.length + 3);
   let queriesDone = 0;
 
   for (const seg of segments) {
@@ -2410,24 +2585,23 @@ async function fetchPOIs(track, token) {
       logDiag(`  seg ${completed} · heritage: ✗ gefaald (${heritageDur}s)`, 'error');
     }
 
-    // Subclass-walk query
+    // Subclass-walk for HISTORIC roots (catches Maginot, Roman variants, etc.)
     if (token !== state.fetchToken) return;
     queriesDone++;
-    const pctS = (queriesDone / totalQueries) * 100;
     showSearchPopup(
-      'Subtypes (forten, Romeins, …)',
+      'Historische subtypes',
       `Segment ${completed}/${segments.length} · ${itemsByQid.size} gevonden`,
-      pctS
+      (queriesDone / totalQueries) * 100
     );
 
-    const subStart = performance.now();
-    const subBindings = await fetchWikidataSubclasses(padded, token);
+    const histSubStart = performance.now();
+    const histSubBindings = await fetchWikidataSubclasses(padded, token, WD_HIST_ROOTS, 'hist-sub');
     if (token !== state.fetchToken) return;
-    const subDur = ((performance.now() - subStart)/1000).toFixed(1);
+    const histSubDur = ((performance.now() - histSubStart)/1000).toFixed(1);
 
-    if (subBindings) {
+    if (histSubBindings) {
       let newCount = 0;
-      for (const b of subBindings) {
+      for (const b of histSubBindings) {
         const parsed = parseWikidataBinding(b, 'hist');
         if (!parsed) continue;
         if (!itemsByQid.has(parsed.qid)) {
@@ -2435,9 +2609,38 @@ async function fetchPOIs(track, token) {
           newCount++;
         }
       }
-      logDiag(`  seg ${completed} · subtypes: ${subBindings.length} hits, ${newCount} nieuw (${subDur}s)`, 'ok');
+      logDiag(`  seg ${completed} · hist-sub: ${histSubBindings.length} hits, ${newCount} nieuw (${histSubDur}s)`, 'ok');
     } else {
-      logDiag(`  seg ${completed} · subtypes: ✗ gefaald (${subDur}s)`, 'error');
+      logDiag(`  seg ${completed} · hist-sub: ✗ gefaald (${histSubDur}s)`, 'error');
+    }
+
+    // Subclass-walk for NATURE roots (catches all waterfall/cave/pass subtypes)
+    if (token !== state.fetchToken) return;
+    queriesDone++;
+    showSearchPopup(
+      'Natuur subtypes (watervallen, passen, …)',
+      `Segment ${completed}/${segments.length} · ${itemsByQid.size} gevonden`,
+      (queriesDone / totalQueries) * 100
+    );
+
+    const natSubStart = performance.now();
+    const natSubBindings = await fetchWikidataSubclasses(padded, token, WD_NATURE_ROOTS, 'nat-sub');
+    if (token !== state.fetchToken) return;
+    const natSubDur = ((performance.now() - natSubStart)/1000).toFixed(1);
+
+    if (natSubBindings) {
+      let newCount = 0;
+      for (const b of natSubBindings) {
+        const parsed = parseWikidataBinding(b, 'nature');
+        if (!parsed) continue;
+        if (!itemsByQid.has(parsed.qid)) {
+          itemsByQid.set(parsed.qid, parsed);
+          newCount++;
+        }
+      }
+      logDiag(`  seg ${completed} · nat-sub: ${natSubBindings.length} hits, ${newCount} nieuw (${natSubDur}s)`, 'ok');
+    } else {
+      logDiag(`  seg ${completed} · nat-sub: ✗ gefaald (${natSubDur}s)`, 'error');
     }
 
     // After each segment, progressively render what we have so far
@@ -2590,13 +2793,12 @@ async function loadSummary(poi) {
 // ============================================================
 function sizeForSitelinks(n) {
   // Wikidata sitelinks count → marker size class
-  // 1-2: very local (e.g. small chapel) → tiny dot
+  // (Items with 1-2 sitelinks are filtered out at SPARQL level for performance)
   // 3-5: local interest → small
   // 6-12: regional → medium
   // 13-25: well known → large
   // 26+: world famous (cathedrals, UNESCO) → extra large
-  if (!n || n <= 2) return { cls: 'xs', px: 12 };
-  if (n <= 5) return { cls: 'sm', px: 16 };
+  if (!n || n <= 5) return { cls: 'sm', px: 16 };
   if (n <= 12) return { cls: 'md', px: 22 };
   if (n <= 25) return { cls: 'lg', px: 30 };
   return { cls: 'xl', px: 38 };
